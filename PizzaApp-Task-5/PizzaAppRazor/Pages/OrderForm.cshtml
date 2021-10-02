@@ -1,0 +1,117 @@
+﻿@page
+@using PizzaAppRazor.DTOs
+@model PizzaAppRazor.Pages.OrderFormModel
+@{
+    ViewData["Title"] = "Order Form page";
+}
+
+<div class="text-center">
+    <h1 class="display-2 text-alert fst-italic fw-bold">Order Form</h1>
+</div>
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <table class="table table-danger table-hover table-sm">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col" class="col-sm-3">Topping</th>
+                    <th scope="col" class="col-sm-3">Price $</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PizzaMenu.Toppings)
+                {
+                    <tr class="table-warning text-center">
+                        <td>@item.Type</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-3">
+        <table class="table table-danger table-hover table-sm">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col" class="col-sm-3">Size</th>
+                    <th scope="col" class="col-sm-3">Price $</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PizzaMenu.Sizes)
+                {
+                    <tr class="table-warning text-center">
+                        <td>@item.Type</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-3">
+        <table class="table table-danger table-hover table-sm">
+            <thead>
+                <tr class="text-center">
+                    <th scope="col" class="col-sm-3">Side</th>
+                    <th scope="col" class="col-sm-3">Price $</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PizzaMenu.Sides)
+                {
+                    <tr class="table-warning text-center">
+                        <td>@item.Type</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="mb-3">
+        <div class="mb-3">
+            <h5 class="text-primary fst-italic">Chosen Pizza Topping:</h5>
+            <select class="Default select example" asp-for="PizzaChoice.Topping">
+                <option value="" selected>Please choose from the toppings list</option>
+                @foreach (var item in Model.PizzaMenu.Toppings)
+                {
+                    <option class="form-select" id="pizzaToppings"
+                            asp-items="item">
+                        @item.Type
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="PizzaChoice.Topping" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <h5 class="text-primary fst-italic">Chosen Pizza Size:</h5>
+            <select class="Default select example" asp-for="PizzaChoice.Size">
+                <option value="" selected>Please choose from the sizes list</option>
+                @foreach (var item in Model.PizzaMenu.Sizes)
+                {
+                    <option class="form-select" id="pizzaSizes"
+                            asp-items="item.Type">
+                        @item.Type
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="PizzaChoice.Size" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <h5 class="text-primary fst-italic"> Chosen Pizza Side:</h5>
+            <select class="Default select example" asp-for="PizzaChoice.Side">
+                <option value="" selected>Please choose from the sides list</option>
+                @foreach (var item in Model.PizzaMenu.Sides)
+                {
+                    <option class="form-select" id="pizzaSides"
+                            asp-items="item.Type">
+                        @item.Type
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="PizzaChoice.Side" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="align-items-center">
+        <button type="submit" class="btn btn-primary">Create Order</button>
+    </div>
+</form>

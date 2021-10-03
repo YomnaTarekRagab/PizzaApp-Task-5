@@ -4,18 +4,20 @@
 <Heading Size="HeadingSize.Is1" TextColor="TextColor.Danger" TextWeight="TextWeight.Bold" TextAlignment="TextAlignment.Center" Italic="true">
     Welcome to Pizza Ordering App
 </Heading>
+
 <div class="text-center">
     <span class="d-inline-flex">
         <img src="https://img.icons8.com/color/54/000000/restaurant-menu.png" />
-
         <Heading Size="HeadingSize.Is2" TextColor="TextColor.Warning" TextWeight="TextWeight.Bold" Italic="true" TextAlignment="TextAlignment.Center" Padding="Padding.Is2">
             Pizza Menu
         </Heading>
     </span>
 </div>
+
 <Heading Size="HeadingSize.Is4" TextColor="TextColor.Primary" Italic="true" TextAlignment="TextAlignment.Left" Padding="Padding.Is3">
     Toppings
 </Heading>
+
 <Container>
     <CardDeck>
         @foreach (var item in PizzaMenu.Toppings)
@@ -31,9 +33,11 @@
         }
     </CardDeck>
 </Container>
+
 <Heading Size="HeadingSize.Is4" TextColor="TextColor.Primary" Italic="true" TextAlignment="TextAlignment.Left" Padding="Padding.Is3">
     Sizes
 </Heading>
+
 <Container>
     <CardDeck>
         @foreach (var item in PizzaMenu.Sizes)
@@ -49,9 +53,11 @@
         }
     </CardDeck>
 </Container>
+
 <Heading Size="HeadingSize.Is4" TextColor="TextColor.Primary" Italic="true" TextAlignment="TextAlignment.Left" Padding="Padding.Is3">
     Sides
 </Heading>
+
 <Container>
     <CardDeck>
         @foreach (var item in PizzaMenu.Sides)
@@ -68,6 +74,7 @@
     </CardDeck>
 </Container>
 <br />
+
 <div class="text-center">
     <span class="d-inline-flex">
         <img src="https://img.icons8.com/color/56/000000/pizza-delivery.png" />
@@ -84,7 +91,7 @@
                 <FieldLabel TextColor="TextColor.Primary" TextWeight="TextWeight.Bold"> Chosen Topping:</FieldLabel>
                 <Validation>
                     <Select TValue="string" @bind-SelectedValue="@PizzaChoice.Topping">
-                        <SelectItem Value="@Empty">Please choose your topping...</SelectItem>
+                        <SelectItem Value="@EmptyString">Please choose your topping...</SelectItem>
                         @foreach (var item in PizzaMenu.Toppings)
                         {
                             <SelectItem Value="@item.Type"> @item.Type  </SelectItem>
@@ -97,7 +104,7 @@
                 <FieldLabel TextColor="TextColor.Primary" TextWeight="TextWeight.Bold"> Chosen Size:</FieldLabel>
                 <Validation>
                     <Select TValue="string" @bind-SelectedValue="@PizzaChoice.Size">
-                        <SelectItem Value="@Empty">Please choose your size...</SelectItem>
+                        <SelectItem Value="@EmptyString">Please choose your size...</SelectItem>
                         @foreach (var item in PizzaMenu.Sizes)
                         {
                             <SelectItem Value="@item.Type"> @item.Type  </SelectItem>
@@ -110,7 +117,7 @@
                 <FieldLabel TextColor="TextColor.Primary" TextWeight="TextWeight.Bold"> Chosen Side:</FieldLabel>
                 <Validation>
                     <Select TValue="string" @bind-SelectedValue="@PizzaChoice.Side">
-                        <SelectItem Value="@Empty">Please choose your side...</SelectItem>
+                        <SelectItem Value="@EmptyString">Please choose your side...</SelectItem>
                         @foreach (var item in PizzaMenu.Sides)
                         {
                             <SelectItem Value="@item.Type"> @item.Type  </SelectItem>
@@ -130,7 +137,6 @@
     </Alert>
     <br />
 </div>
-<br />
 
 @code {
     public PizzaModel PizzaMenu { get; set; } = new PizzaModel
@@ -149,7 +155,7 @@
     public Order PrefOrder { get; set; }
     Validations Validations;
     public string Message = "";
-    public string Empty = "";
+    public string EmptyString = "";
     Alert MyAlert = new Alert
     {
         Color = Color.Success
@@ -200,7 +206,11 @@
         var response = await client.PostAsync(baseUrl + "createPizza", stringContent);
         if (response.IsSuccessStatusCode)
         {
-            Message = "Your Order has been created successfully!!";
+            Message = $"Your Order has been created successfully!! " +
+                    $"Your Pizza's Topping: {PrefOrder.Pizza.Topping}, " +
+                    $"Your Pizza's Size: {PrefOrder.Pizza.Size}, " +
+                    $"Your Pizza's Side: {PrefOrder.Pizza.Side}, " +
+                    $"Total Price: $ {PrefOrder.TotalPrice}";
             MyAlert.Color = Color.Success;
             MyAlert.Show();
         }
@@ -212,4 +222,3 @@
         }
     }
 }
-

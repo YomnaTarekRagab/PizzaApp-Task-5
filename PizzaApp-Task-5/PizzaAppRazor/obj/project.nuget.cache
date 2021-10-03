@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "zg85pjIt1EQEHngl6LQJ4bIFBUcnePya5Ou9oLujmfg8Izrg9GVfX/0nY7K5fiwh8leIL+JeTiTLzp+bYnf5gg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dell\\Desktop\\PizzaApp-Task-5\\PizzaApp-Task-5\\PizzaAppRazor\\PizzaAppRazor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dell\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

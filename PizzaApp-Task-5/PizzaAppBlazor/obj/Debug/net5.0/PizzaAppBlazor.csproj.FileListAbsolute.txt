@@ -1,0 +1,16 @@
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.csproj.AssemblyReference.cache
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.AssemblyInfoInputs.cache
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.AssemblyInfo.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.csproj.CoreCompileInputs.cache
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.RazorComponent.input.cache
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\App.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\Pages\Counter.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\Pages\FetchData.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\Pages\Index.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\Shared\SurveyPrompt.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\_Imports.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\Shared\MainLayout.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\RazorDeclaration\Shared\NavMenu.razor.g.cs
+C:\Users\dell\Desktop\PizzaApp-Task-5\PizzaApp-Task-5\PizzaAppBlazor\obj\Debug\net5.0\PizzaAppBlazor.RazorComponent.output.cache

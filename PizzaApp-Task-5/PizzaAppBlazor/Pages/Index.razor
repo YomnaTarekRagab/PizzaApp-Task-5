@@ -1,0 +1,215 @@
+﻿@page "/"
+@inject IHttpClientFactory _clientFactory
+
+<Heading Size="HeadingSize.Is1" TextColor="TextColor.Danger" TextWeight="TextWeight.Bold" TextAlignment="TextAlignment.Center" Italic="true">
+    Welcome to Pizza Ordering App
+</Heading>
+<div class="text-center">
+    <span class="d-inline-flex">
+        <img src="https://img.icons8.com/color/54/000000/restaurant-menu.png" />
+
+        <Heading Size="HeadingSize.Is2" TextColor="TextColor.Warning" TextWeight="TextWeight.Bold" Italic="true" TextAlignment="TextAlignment.Center" Padding="Padding.Is2">
+            Pizza Menu
+        </Heading>
+    </span>
+</div>
+<Heading Size="HeadingSize.Is4" TextColor="TextColor.Primary" Italic="true" TextAlignment="TextAlignment.Left" Padding="Padding.Is3">
+    Toppings
+</Heading>
+<Container>
+    <CardDeck>
+        @foreach (var item in PizzaMenu.Toppings)
+        {
+            <Card Background="Background.Light" VerticalAlignment="VerticalAlignment.Middle" Shadow="Shadow.Small" Border="Border.Danger" TextAlignment="TextAlignment.Center">
+                <CardHeader>@item.Type</CardHeader>
+                <CardBody>
+                    <CardText>
+                        $  @item.Price
+                    </CardText>
+                </CardBody>
+            </Card>
+        }
+    </CardDeck>
+</Container>
+<Heading Size="HeadingSize.Is4" TextColor="TextColor.Primary" Italic="true" TextAlignment="TextAlignment.Left" Padding="Padding.Is3">
+    Sizes
+</Heading>
+<Container>
+    <CardDeck>
+        @foreach (var item in PizzaMenu.Sizes)
+        {
+            <Card Background="Background.Light" VerticalAlignment="VerticalAlignment.Middle" Shadow="Shadow.Small" Border="Border.Danger" TextAlignment="TextAlignment.Center">
+                <CardHeader>@item.Type</CardHeader>
+                <CardBody>
+                    <CardText>
+                        $  @item.Price
+                    </CardText>
+                </CardBody>
+            </Card>
+        }
+    </CardDeck>
+</Container>
+<Heading Size="HeadingSize.Is4" TextColor="TextColor.Primary" Italic="true" TextAlignment="TextAlignment.Left" Padding="Padding.Is3">
+    Sides
+</Heading>
+<Container>
+    <CardDeck>
+        @foreach (var item in PizzaMenu.Sides)
+        {
+            <Card Background="Background.Light" VerticalAlignment="VerticalAlignment.Middle" Shadow="Shadow.Small" Border="Border.Danger" TextAlignment="TextAlignment.Center">
+                <CardHeader>@item.Type</CardHeader>
+                <CardBody>
+                    <CardText>
+                        $  @item.Price
+                    </CardText>
+                </CardBody>
+            </Card>
+        }
+    </CardDeck>
+</Container>
+<br />
+<div class="text-center">
+    <span class="d-inline-flex">
+        <img src="https://img.icons8.com/color/56/000000/pizza-delivery.png" />
+            <Heading Size="HeadingSize.Is2" TextColor="TextColor.Warning" TextWeight="TextWeight.Bold" Italic="true" TextAlignment="TextAlignment.Center" Padding="Padding.Is2">
+                Order Pizza
+            </Heading>
+        </span>
+</div>
+
+<div>
+    <EditForm Model="@PizzaChoice" OnSubmit="@HandleSubmit">
+        <Validations @ref="Validations" Mode="ValidationMode.Auto" Model="@PizzaChoice" ValidateOnLoad="false">
+            <Field>
+                <FieldLabel TextColor="TextColor.Primary" TextWeight="TextWeight.Bold"> Chosen Topping:</FieldLabel>
+                <Validation>
+                    <Select TValue="string" @bind-SelectedValue="@PizzaChoice.Topping">
+                        <SelectItem Value="@Empty">Please choose your topping...</SelectItem>
+                        @foreach (var item in PizzaMenu.Toppings)
+                        {
+                            <SelectItem Value="@item.Type"> @item.Type  </SelectItem>
+                        }
+
+                    </Select>
+                </Validation>
+            </Field>
+            <Field>
+                <FieldLabel TextColor="TextColor.Primary" TextWeight="TextWeight.Bold"> Chosen Size:</FieldLabel>
+                <Validation>
+                    <Select TValue="string" @bind-SelectedValue="@PizzaChoice.Size">
+                        <SelectItem Value="@Empty">Please choose your size...</SelectItem>
+                        @foreach (var item in PizzaMenu.Sizes)
+                        {
+                            <SelectItem Value="@item.Type"> @item.Type  </SelectItem>
+                        }
+
+                    </Select>
+                </Validation>
+            </Field>
+            <Field>
+                <FieldLabel TextColor="TextColor.Primary" TextWeight="TextWeight.Bold"> Chosen Side:</FieldLabel>
+                <Validation>
+                    <Select TValue="string" @bind-SelectedValue="@PizzaChoice.Side">
+                        <SelectItem Value="@Empty">Please choose your side...</SelectItem>
+                        @foreach (var item in PizzaMenu.Sides)
+                        {
+                            <SelectItem Value="@item.Type"> @item.Type  </SelectItem>
+                        }
+
+                    </Select>
+                </Validation>
+            </Field>
+            <Button class="btn-primary" Type="ButtonType.Submit" PreventDefaultOnSubmit="true" Color="Color.Warning" Clicked="@HandleSubmit">
+                Order now!
+            </Button>
+        </Validations>
+    </EditForm>
+    <br />
+    <Alert @ref="@MyAlert">
+        <AlertMessage>@Message</AlertMessage>
+    </Alert>
+    <br />
+</div>
+<br />
+
+@code {
+    public PizzaModel PizzaMenu { get; set; } = new PizzaModel
+    {
+        Toppings = new List<TypeXPrice>(),
+        Sizes = new List<TypeXPrice>(),
+        Sides = new List<TypeXPrice>()
+    };
+    public string baseUrl = "http://localhost:5000/";
+    public Pizza PizzaChoice { get; set; } = new Pizza
+    {
+        Topping = "",
+        Size = "",
+        Side = ""
+    };
+    public Order PrefOrder { get; set; }
+    Validations Validations;
+    public string Message = "";
+    public string Empty = "";
+    Alert MyAlert = new Alert
+    {
+        Color = Color.Success
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var client = _clientFactory.CreateClient("PizzaAppApi");
+            string components = await client.GetStringAsync(baseUrl + "components");
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            PizzaMenu = System.Text.Json.JsonSerializer.Deserialize<PizzaModel>(components, options);
+        }
+        StateHasChanged();
+    }
+
+    public async Task HandleSubmit()
+    {
+        if (!Validations.ValidateAll())
+        {
+            Message = "Sorry, we couldn't place your order. Please try again.";
+            MyAlert.Color = Color.Danger;
+            MyAlert.Show();
+            return;
+        }
+        var client = _clientFactory.CreateClient("PizzaAppApi");
+        var jsonPizza = System.Text.Json.JsonSerializer.Serialize<Pizza>(PizzaChoice);
+        var request = new HttpRequestMessage
+        {
+            Method = HttpMethod.Get,
+            RequestUri = new Uri(baseUrl + "price"),
+            Content = new StringContent(jsonPizza, System.Text.Encoding.UTF8, "application/json"),
+        };
+        var price = await client.SendAsync(request);
+        PrefOrder = new Order
+        {
+            Pizza = new Pizza()
+        };
+        PrefOrder.SetPizzaOrder(PizzaChoice);
+        PrefOrder.Pizza.PricePerPizza = Double.Parse(await price.Content.ReadAsStringAsync());
+        PrefOrder.OrderPrice();
+        var myContent = JsonConvert.SerializeObject(PrefOrder);
+        var stringContent = new StringContent(myContent, System.Text.Encoding.UTF8, "application/json");
+        var response = await client.PostAsync(baseUrl + "createPizza", stringContent);
+        if (response.IsSuccessStatusCode)
+        {
+            Message = "Your Order has been created successfully!!";
+            MyAlert.Color = Color.Success;
+            MyAlert.Show();
+        }
+        else
+        {
+            Message = "Sorry, we couldn't place your order. Please try again.";
+            MyAlert.Color = Color.Danger;
+            MyAlert.Show();
+        }
+    }
+}
+
